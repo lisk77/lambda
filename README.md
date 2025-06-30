@@ -25,6 +25,20 @@ or just echo the code directly
 echo "main = \\ x . x;" | lambda
 ```
 
+### Syntax
+
+Lambda expression
+```
+\ param1 param2 param3 ... param3 . body
+```
+
+Name definition
+```
+identifier = lambda expression | identifier;
+```
+
+For a file to be able to be run, it needs to define a `main` function.
+
 ## Future ideas
 
 - [ ] types
