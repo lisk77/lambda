@@ -3,6 +3,8 @@
 #include <sstream>
 #include <vector>
 
+// thank you chatgpt lol
+
 // Forward‐declare
 static void _print(const Expr* e, std::ostream& out);
 
@@ -51,6 +53,6 @@ static void _print(const Expr* e, std::ostream& out) {
     }
 
     // fallback
-    out << "<??>";
+    out << "print: unknown expression";
 }
 
