@@ -1,0 +1,13 @@
+0 = \ f x . x;
+1 = \ f x . f x;
+2 = \ f x . f ( f x );
+
+isZero = \ n . n (\ x . false) true;
+succ = \ n f x . f ( n f x );
+pred = \ n f x . n (\ g h . h ( g f )) (\u . x) (\u . u);
+add = \ m n . n succ m;
+sub = \ m n . n pred m;
+mul = \ m n f . m ( n f );
+exp = \ b n . n b;
+
+main = add 2 1;

@@ -1,0 +1,12 @@
+pair = \ x y z . z x y;
+
+first = \ p . p (\ x y . x);
+second = \ p . p (\ x y . y);
+
+cons = pair;
+head = first;
+tail = second;
+nil = \ x y . y;
+isNil = \ l . l (\ h t d . (\ x y . y)) (\ x y . x);
+
+main = first (pair a b);

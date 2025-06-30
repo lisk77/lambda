@@ -1,0 +1,9 @@
+true = \ x y . x;
+false = \ x y . y;
+
+not = \ p . p false true;
+and = \ p q . p q p;
+or = \ p q . p p q;
+xor = \ p q . p ( not q ) q;
+
+main = and true false;
