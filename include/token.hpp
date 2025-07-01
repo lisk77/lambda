@@ -14,7 +14,8 @@ typedef enum {
     LPAREN,
     RPAREN,
     VARIABLE,
-    EQUALS
+    EQUALS,
+    IMPORT
 } TokenType;
 
 typedef struct {

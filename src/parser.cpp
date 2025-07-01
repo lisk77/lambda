@@ -1,4 +1,5 @@
 #include "parser.hpp"
+#include "lexer.hpp"
 #include "ast.hpp"
 
 #include <stdexcept>
@@ -6,6 +7,7 @@
 #include <string>
 #include <memory>
 #include <iostream>
+#include <fstream>
 
 Parser::Parser(std::vector<Token> toks)
     : tokens(std::move(toks))
@@ -86,6 +88,31 @@ std::unique_ptr<Expr> Parser::parseSimple() {
         std::unique_ptr<Expr> e = parseApplication();
         expect(TokenType::RPAREN);
         return e;
+    }
+
+    if (peek().type == TokenType::IMPORT) {
+        position++;
+        const auto &path = get();
+
+        std::ifstream file(path.lexeme, std::ios::binary);
+        if (!file) {
+            throw std::runtime_error("import: unable to open file: " + path.lexeme);
+        }
+        std::string content(std::istreambuf_iterator<char>(file), {});
+
+        Lexer    lexImp(content);
+        auto     tokensImp = lexImp.tokenize();
+
+        Parser   parserImp(std::move(tokensImp));
+        parserImp.parseProgram();
+
+        std::cout << "importing " << path.lexeme << std::endl;
+
+        for (const auto &entry : parserImp.definitions()) {
+            defs.emplace(entry.first, entry.second->clone());
+        }
+
+        return nullptr;
     }
 
     throw std::runtime_error("parser: expected \\, variable, or '(' at position " + std::to_string(peek().start));

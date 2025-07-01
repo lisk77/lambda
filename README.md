@@ -42,5 +42,5 @@ For a file to be able to be run, it needs to define a `main` function.
 ## Future ideas
 
 - [ ] types
-- [ ] imports
+- [x] imports (at least simple)
 - [ ] small standard library

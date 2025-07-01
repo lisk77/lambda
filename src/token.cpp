@@ -14,6 +14,7 @@ std::string display_tokentype(TokenType type) {
         case RPAREN      : return "RPAREN";
         case EQUALS      : return "EQUALS";
         case VARIABLE    : return "VARIABLE";
+        case IMPORT      : return "IMPORT";
         default          : return "";
     }
 }

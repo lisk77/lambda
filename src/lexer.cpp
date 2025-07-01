@@ -55,6 +55,25 @@ std::vector<Token> Lexer::tokenize() {
                 position++;
             }
             std::string lex = src.substr(start, position - start);
+            if (lex == "import") {
+                tokens.push_back({ IMPORT, lex, start, position });
+                position++;
+                size_t startPath = position;
+
+                while (position < len && !IS_SPACE(src[position]) && src[position] != ';')
+                {
+                    position++;
+                }
+                if (position >= len) {
+                    std::cerr << "lexer: import statement was not closed with semicolon" << std::endl;
+                    this->error_flag = true;
+                    continue;
+                }
+
+                std::string path = src.substr(startPath, position - startPath);
+                tokens.push_back({ VARIABLE, path, startPath, position });
+                continue;
+            }
             tokens.push_back({ VARIABLE, lex, start, position });
         }
         else if (IS_SPACE(curr)) {
